@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+
+<h2>Student Registration API Test</h2>
+
+<button onclick="registerStudent()">REGISTER TEST STUDENT</button>
+
+<p id="result">Waiting...</p>
+
+<script>
+async function registerStudent() {
+
+    document.getElementById("result").innerText = "Sending request...";
+
+    try {
+
+        const response = await fetch(
+            "http://localhost/University%20System/config/Register/register_api.php",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    student_id: "API002",
+                    full_name: "Test Student",
+                    registration_number: "API/002/2026",
+                    email: "apitest002@example.com",
+                    course: "Software Engineering"
+                })
+            }
+        );
+
+        const result = await response.text();
+
+        document.getElementById("result").innerText =
+            "HTTP Status: " + response.status + "\nResponse: " + result;
+
+    } catch (error) {
+
+        document.getElementById("result").innerText =
+            "ERROR: " + error.message;
+
+    }
+}
+</script>
+
+</body>
+</html>
